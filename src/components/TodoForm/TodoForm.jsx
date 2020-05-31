@@ -2,12 +2,19 @@ import React, { useState } from 'react';
 import './TodoForm.css';
 const TodoForm = ({ submitForm }) => {
   const [todoText, setTodoText] = useState('');
+  const [errors, setErrors] = useState(false);
 
   const onFormSubmit = (e) => {
     e.preventDefault();
-    // Do some checks here later?
+    // Check length
+    if (todoText.length < 1) {
+      setErrors(true);
+      return;
+    }
+
     submitForm(todoText);
     setTodoText('');
+    setErrors(false);
   };
   return (
     <div className='todoForm'>
@@ -18,6 +25,7 @@ const TodoForm = ({ submitForm }) => {
           name='todoText'
           placeholder='What do you need to do?'
           onChange={(e) => setTodoText(e.target.value)}
+          className={errors ? 'errors' : ''}
         />
       </form>
     </div>

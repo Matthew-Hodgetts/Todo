@@ -1,16 +1,16 @@
 import React from 'react';
 import './SingleTodo.css';
 import check from './check.svg';
-const SingleTodo = ({ text, done, deleteClick, toggleDone }) => {
+const SingleTodo = ({ id, text, done, deleteClick, toggleDone }) => {
   return (
     <div className={done ? 'singleTodo singleTodo--done' : 'singleTodo'}>
-      <button className='singleTodo__check' onClick={(e) => toggleDone(text)}>
+      <button className='singleTodo__check' onClick={(e) => toggleDone(id)}>
         <img src={check} alt='Check mark' />
       </button>
       <p className='singleTodo__text'>{text}</p>
       <button
         className='singleTodo__delete'
-        onClick={() => deleteClick(text)}></button>
+        onClick={() => deleteClick(id)}></button>
     </div>
   );
 };
