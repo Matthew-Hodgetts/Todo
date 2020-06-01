@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './TodoApp.css';
 
 import { v4 as uuidv4 } from 'uuid';
@@ -6,11 +6,24 @@ import { v4 as uuidv4 } from 'uuid';
 import TodoForm from '../TodoForm/TodoForm';
 import SingleTodo from '../SingleTodo/SingleTodo';
 const TodoApp = () => {
-  const [todos, setTodos] = useState([
-    { id: uuidv4(), text: 'Create the best todo app ever', done: true },
-    { id: uuidv4(), text: 'get interview', done: false },
-    { id: uuidv4(), text: 'Get hired', done: false },
-  ]);
+  const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    const state = localStorage.getItem('state');
+    if (state) {
+      setTodos(JSON.parse(state));
+    }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem('state', JSON.stringify(todos));
+  }, [todos]);
+
+  const editTodo = (e, id) => {
+    const index = todos.findIndex((todo) => todo.id === id);
+    const todosCopy = [...todos];
+    todosCopy[index].text = e.target.value;
+    setTodos(todosCopy);
+  };
 
   const addTodo = (todoText) => {
     const newTodo = { id: uuidv4(), text: todoText, done: false };
@@ -45,6 +58,7 @@ const TodoApp = () => {
           done={todo.done}
           deleteClick={deleteTodo}
           toggleDone={toggleDone}
+          editTodo={editTodo}
         />
       ))}
     </div>

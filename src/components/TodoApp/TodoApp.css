@@ -4,7 +4,12 @@
 }
 @media only screen and (min-width: 768px) {
   .TodoApp {
-    max-width: 50%;
+    max-width: 70%;
+  }
+}
+@media only screen and (min-width: 1100px) {
+  .TodoApp {
+    max-width: 700px;
   }
 }
 
@@ -12,4 +17,5 @@
   color: #fff;
   text-align: center;
   font-size: 4rem;
+  font-weight: var(--app-font-weight-light);
 }
